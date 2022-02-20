@@ -1,7 +1,15 @@
 from plot import *
 import pandas as pd
+<<<<<<< Updated upstream
 import streamlit as st
 from streamlit_metrics import metric_row
+=======
+import io
+import os
+
+from plot import *
+from cv import analyse_video
+>>>>>>> Stashed changes
 
 # Setting page title and icon
 st.set_page_config(
@@ -22,7 +30,7 @@ st.image('../asset/logo/Batlytics_logo.png')
 dropdown = st.selectbox(
     'Click on tabs to navigate to pages',
     (
-        'About', 'OpenCV model', 'Visualizations', 'Future work'
+        'About', 'Computer Vision Analysis', 'Visualizations', 'Future work'
     )
 )
 
@@ -59,9 +67,45 @@ if dropdown == 'About':
         In addition, these analytical information can be accessed and used in other ways suitable for the coaches or other team members.
         '''
     )
+
+if dropdown == 'Computer Vision Analysis':
+    with st.form('my-form', clear_on_submit=True):
+        video_file = st.file_uploader("Upload a video", type=['mp4'])
+        submitted = st.form_submit_button("Analyse!")
     
-if dropdown == 'OpenCV model':
-    st.write('Welcome to OpenCV')
+    if submitted and video_file is not None:
+        # Save uploaded video
+        bytes_upload = io.BytesIO(video_file.read())
+
+        # Clear the file upload
+        video_file = None
+
+        tmp_in_path = 'tmp_in.mp4' # TODO: tempfile
+        with open(tmp_in_path, 'wb') as temp_input_file:
+            temp_input_file.write(bytes_upload.read())
+
+        # Temporary output video
+        tmp_out_path = 'tmp_out.mp4' # TODO: tempfile
+        
+        # Analyze video
+        with st.spinner('Analysing video...'):
+            analyse_video(tmp_in_path, tmp_out_path)
+
+        with open(tmp_out_path, 'rb') as out_video:
+            # # Show analyzed video
+            # st.video(out_video, 'video/mp4v')
+
+            # Download button for the analysed video
+            st.download_button(
+                label='Download Analysed Video',
+                data=out_video,
+                file_name='output_video.mp4',
+                mime='video/mp4',
+            )
+
+        # Delete the temp files
+        os.unlink(tmp_in_path)
+        os.unlink(tmp_out_path)
 
 if dropdown == 'Visualizations':
     # KPI cards

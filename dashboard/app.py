@@ -1,15 +1,12 @@
 from plot import *
 import pandas as pd
-<<<<<<< Updated upstream
 import streamlit as st
 from streamlit_metrics import metric_row
-=======
 import io
 import os
 
 from plot import *
 from cv import analyse_video
->>>>>>> Stashed changes
 
 # Setting page title and icon
 st.set_page_config(

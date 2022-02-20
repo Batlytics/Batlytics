@@ -87,10 +87,15 @@ if dropdown == 'Computer Vision Analysis':
         # Analyze video
         with st.spinner('Analysing video...'):
             analyse_video(tmp_in_path, tmp_out_path)
+            # Convert to an HTML5 compatible codec
+            old_out_path = tmp_out_path
+            tmp_out_path = 'final_tmp_out.mp4'
+            os.system('ffmpeg -i {} -vcodec libx264 {}'.format(old_out_path, tmp_out_path))
+            os.unlink(old_out_path)
 
         with open(tmp_out_path, 'rb') as out_video:
             # # Show analyzed video
-            # st.video(out_video, 'video/mp4v')
+            st.video(out_video)
 
             # Download button for the analysed video
             st.download_button(

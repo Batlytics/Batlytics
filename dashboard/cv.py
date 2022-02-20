@@ -148,7 +148,7 @@ def analyse_video(input_path, output_path):
 
     # Output
     size = (1920, 1080)
-    fourcc = cv2.VideoWriter_fourcc(*'x264')
+    fourcc = cv2.VideoWriter_fourcc(*'MP4V')
     FPS = 25
     out = cv2.VideoWriter(output_path, fourcc, FPS, size)
     

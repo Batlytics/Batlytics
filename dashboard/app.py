@@ -159,4 +159,15 @@ if dropdown == 'Visualizations':
 
 # Future work section
 if dropdown == 'Future work':
-    pass
+    st.write(
+        '''
+        There are few thing we need to improve upon, like
+        1. Use ROI(Region of Interest) to track a particular player and implement position tracking mechanism on top of ROI.
+        2. For tracking multiple players pitch coordinates, all the players tracking boundaries could be added with threads, so it would efficiently track locations of all players.
+        3. Improve efficiency of video tracking mechanism, so that it would only track players, not other objects.
+        '''
+    )
+    st.image('../asset/future_scope/ROI_tracking.png')
+    st.image('../asset/future_scope/player_position_.png')
+    st.image('../asset/future_scope/player_position_2.png')
+    st.image('../asset/future_scope/player_position_3.png')
